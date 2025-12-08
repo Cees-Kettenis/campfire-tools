@@ -9,19 +9,6 @@
         <link rel="icon" href="/static/favicon.png" type="image/png">
         <meta name="darkreader-lock">
         <meta name="color-scheme" content="light dark">
-        <script>
-            (function () {
-                var ua = navigator.userAgent.toLowerCase();
-                var isSafari = ua.includes("safari") && !ua.includes("chrome") && !ua.includes("android");
-                var isiOS = /iphone|ipad|ipod/.test(ua);
-                if (isSafari || isiOS) {
-                    document.documentElement.classList.add("safari");
-                }
-                if (isiOS) {
-                    document.documentElement.classList.add("safari-ios");
-                }
-            })();
-        </script>
         <script src="/static/htmx.min.js"></script>
         {{ template "live_reload_script" }}
     </head>
@@ -46,6 +33,17 @@
         <li><a href="/api/docs">API Docs</a></li>
     </nav>
     <script>
+         (function () {
+                var ua = navigator.userAgent.toLowerCase();
+                var isSafari = ua.includes("safari") && !ua.includes("chrome") && !ua.includes("android");
+                var isiOS = /iphone|ipad|ipod/.test(ua);
+                if (isSafari || isiOS) {
+                    document.documentElement.classList.add("safari");
+                }
+                if (isiOS) {
+                    document.documentElement.classList.add("safari-ios");
+                }
+            })();
         document.addEventListener("DOMContentLoaded", () => {
             const dropdown = document.querySelector(".nav-dropdown");
             if (!dropdown) return;

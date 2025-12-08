@@ -1,19 +1,63 @@
 {{ template "head" "Campfire Tools" }}
-<div class="container">
+<div class="container index-landing">
     <div class="container-header">
         <h1>Campfire Tools</h1>
     </div>
 
-    <p>Welcome to the Campfire Tools! Here you can run raffles, export campfire data, view events and track your campfire check-ins.</p>
-
-    <div class="buttons" hx-boost="true">
-        <a href="/raffle" class="button">Raffle</a>
-        <a href="/export" class="button">Export</a>
-        <a href="/event" class="button">Event</a>
+    <div class="section">
+        <p>
+            Welcome to the Campfire Toolkit for Community Ambassadors. Each link in the navigation bar opens
+            a purpose-built workflow pulled straight from the tools in this codebase, so you always know what
+            to expect before you click.
+        </p>
     </div>
-    <div class="buttons" hx-boost="true">
-        <a href="/tracker" class="button">Tracker</a>
-        <a href="/api/docs" class="button">API Docs</a>
+
+    <div class="section">
+        <h2>Raffle</h2>
+        <p>
+            Run quick giveaways by pasting one or more Campfire event links, picking how many winners you need,
+            and choosing whether to limit entries to checked-in attendees or one entry per person. Past raffles
+            are saved so you can review results or rerun them with a click.
+        </p>
+        <div class="buttons" hx-boost="true">
+            <a href="/raffle" class="button">Open Raffle</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Tracker</h2>
+        <p>
+            After logging in with Discord you can manage every club tied to your account: browse events,
+            monitor members and check-ins, import or export data, run club-specific raffles, and hand out
+            reward codes. It is the control room that powers the other tools.
+        </p>
+        <div class="buttons" hx-boost="true">
+            <a href="/tracker/login" class="button">Go to Tracker</a>
+        </div>
+    </div>
+
+        <div class="section">
+        <h2>Export</h2>
+        <p>
+            Need spreadsheets for reporting? The export page lets you pull Campfire check-ins for specific
+            events, choose exactly which columns to include, optionally merge every event into a single CSV,
+            and even keep entries that Campfire doesn't name so nothing gets lost.
+        </p>
+        <div class="buttons" hx-boost="true">
+            <a href="/export" class="button">Open Export</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>API Docs</h2>
+        <p>
+            Prefer automation? The API documentation spells out the <code>/api/events</code> export,
+            club-specific endpoints, and the event import payloads, so you can script the same workflows
+            without leaving your terminal.
+        </p>
+        <div class="buttons" hx-boost="true">
+            <a href="/api/docs" class="button">View API Docs</a>
+        </div>
     </div>
 </div>
 {{ template "footer" }}

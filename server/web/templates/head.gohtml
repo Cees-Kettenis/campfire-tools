@@ -9,70 +9,80 @@
         <link rel="icon" href="/static/favicon.png" type="image/png">
         <meta name="darkreader-lock">
         <meta name="color-scheme" content="light dark">
-        <style>
-            *,
-            *::before,
-            *::after {
-                box-sizing: border-box;
-            }
-
-            :root {
-                --font-family: Arial;
-                --primary-color: #007bff;
-                --primary-color-hover: #0056b3;
-                --error-color: #ef5656;
-
-                --color-success: #4caf50;
-                --color-success-hover: #388e3c;
-                --color-info: #ffeb3b;
-                --color-info-hover: #fbc02d;
-                --color-warning: #ff9800;
-                --color-warning-hover: #f57c00;
-                --color-danger: #ff6155;
-                --color-danger-hover: #e53935;
-
-                --static-background-color: #ececec;
-            }
-
-            @media (prefers-color-scheme: dark) {
-                :root {
-                    --background-color: #1e1e1e;
-                    --background2-color: #2c2c2c;
-                    --text-color: #ffffff;
-                    --text2-color: #b0b0b0;
-                    --border-color: #444444;
+        <script>
+            (function () {
+                var ua = navigator.userAgent.toLowerCase();
+                var isSafari = ua.includes("safari") && !ua.includes("chrome") && !ua.includes("android");
+                var isiOS = /iphone|ipad|ipod/.test(ua);
+                if (isSafari || isiOS) {
+                    document.documentElement.classList.add("safari");
                 }
-
-                html {
-                    color-scheme: dark;
+                if (isiOS) {
+                    document.documentElement.classList.add("safari-ios");
                 }
-            }
-
-            @media (prefers-color-scheme: light) {
-                :root {
-                    --background-color: #ffffff;
-                    --background2-color: #f0f0f0;
-                    --text-color: #000000;
-                    --text2-color: #333333;
-                    --border-color: #cccccc;
-                }
-
-                html {
-                    color-scheme: light;
-                }
-            }
-
-            html {
-                background-color: var(--background-color);
-                color: var(--text-color);
-                font-family: var(--font-family), sans-serif;
-            }
-        </style>
+            })();
+        </script>
         <script src="/static/htmx.min.js"></script>
         {{ template "live_reload_script" }}
     </head>
     <body>
     <div class="main">
+    {{/* should be using the {{ template "tracker_footer" }} if logged in with discord. */}}
+    <nav class="navbar">
+        <li><a href="/">Home</a></li>
+        <li><a href="/raffle">Raffle</a></li>
+        <li><a href="/export">Export</a></li>
+        <li class="nav-dropdown">
+            <button class="nav-link" type="button" aria-haspopup="true" aria-expanded="false">
+                <span>Tracker Hub</span>
+                <span class="nav-arrow" aria-hidden="true">▼</span>
+            </button>
+            <div class="nav-dropdown-menu">
+                <a href="/tracker">Tracker</a>
+                <a href="/tracker/clubs">Clubs</a>
+                <a href="/tracker/rewards">Rewards</a>
+            </div>
+        </li>
+        <li><a href="/api/docs">API Docs</a></li>
+    </nav>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const dropdown = document.querySelector(".nav-dropdown");
+            if (!dropdown) return;
+
+            const toggle = dropdown.querySelector(".nav-link");
+            const menu = dropdown.querySelector(".nav-dropdown-menu");
+            if (!toggle || !menu) return;
+
+            const closeMenu = () => {
+                dropdown.classList.remove("open");
+                toggle.setAttribute("aria-expanded", "false");
+            };
+
+            toggle.addEventListener("click", (event) => {
+                event.stopPropagation();
+                const isOpen = dropdown.classList.contains("open");
+                if (isOpen) {
+                    closeMenu();
+                } else {
+                    dropdown.classList.add("open");
+                    toggle.setAttribute("aria-expanded", "true");
+                }
+            });
+
+            document.addEventListener("click", (event) => {
+                if (!dropdown.contains(event.target)) {
+                    closeMenu();
+                }
+            });
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
     {{ if false }}
         </div>
         </body>
